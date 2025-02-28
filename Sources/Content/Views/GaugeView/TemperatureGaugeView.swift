@@ -19,13 +19,14 @@ public struct TemperatureGaugeView: View {
     @State private var meterAngle: Double
     @State private var indicatorsConfigurations: [IndicatorViewConfiguration] = []
     
-    public init(animationDuration: TimeInterval, progress: CGFloat = 0.0, numberOfSegments: Int = 100, step: Int = 10, fontSize: CGFloat = 16) {
+    public init(animationDuration: TimeInterval, progress: CGFloat = 0.0, numberOfSegments: Int = 100, step: Int = 10, fontSize: CGFloat = 16, unit: String) {
         self.animationDuration = animationDuration
         self.progress = progress
         self.numberOfSegments = numberOfSegments
         self.step = step
         self.fontSize = fontSize
         self.meterAngle = Constants.startAngle
+        self.unit:unit
     }
     
     private struct Constants {
