@@ -26,7 +26,8 @@ public struct TemperatureGaugeView: View {
         self.step = step
         self.fontSize = fontSize
         self.meterAngle = Constants.startAngle
-        self.unit:unit
+        self.unit = unit
+        
     }
     
     private struct Constants {
