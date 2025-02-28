@@ -60,13 +60,13 @@ struct IndicatorsView: View {
     }
     
 }
-#Preview {
-    IndicatorsView(
-        indicatorConfigurations: (-10..<100).map { index in
-            IndicatorViewConfiguration(index: index, angle: Double(index * 10))
-        },
-        step: 5,
-        fontSize: 14
-    )
-    .frame(width: 200, height: 200)
-}
+//#Preview {
+//    IndicatorsView(
+//        indicatorConfigurations: (0..<100).map { index in
+//            IndicatorViewConfiguration(index: index, angle: Double(index * 10))
+//        },
+//        step: 5,
+//        fontSize: 14
+//    )
+//    .frame(width: 200, height: 200)
+//}

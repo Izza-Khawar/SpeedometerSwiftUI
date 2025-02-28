@@ -17,11 +17,11 @@ extension Gradient {
     ])
     static let temperatureGradient = Gradient(stops: [
         Gradient.Stop(color: .freezing, location: 0.0),
-        Gradient.Stop(color: .cold, location: 0.25),
-        Gradient.Stop(color: .cool, location: 0.50),
-        Gradient.Stop(color: .neutral, location: 0.60),
-        Gradient.Stop(color: .warm, location: 0.75),
-        Gradient.Stop(color: .hot, location: 0.90),
-        Gradient.Stop(color: .boiling, location: 1.0)
+        Gradient.Stop(color: .freezing, location: 0.10),
+        Gradient.Stop(color: .cold, location: 0.15),
+        Gradient.Stop(color: .cool, location: 0.20),
+        Gradient.Stop(color: .neutral, location: 0.35),
+        Gradient.Stop(color: .warm, location: 0.70),
+        Gradient.Stop(color: .hot, location: 1.0)
     ])
 }
