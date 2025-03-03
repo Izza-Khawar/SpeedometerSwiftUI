@@ -19,6 +19,8 @@ struct TemperatureView: View {
     let indicatorsConfigurations: [IndicatorViewConfiguration]
     let unit: String
     let temperature: CGFloat
+    let temperatureMin: CGFloat
+    let temperatureMax: CGFloat
     private struct Constants {
         static let arcsInset: CGFloat = 20.0
         static let meterStrokeStyle = StrokeStyle(lineWidth: 4.0, lineCap: .round)
@@ -63,7 +65,9 @@ struct TemperatureView: View {
                 IndicatorsView(
                     indicatorConfigurations: indicatorsConfigurations,
                     step: step,
-                    fontSize: fontSize
+                    fontSize: fontSize,
+                    temperatureMin: temperatureMin,
+                    temperatureMax: temperatureMax
                 )
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 

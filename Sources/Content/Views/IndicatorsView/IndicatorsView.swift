@@ -11,6 +11,8 @@ struct IndicatorsView: View {
     let indicatorConfigurations: [IndicatorViewConfiguration]
     let step: Int
     let fontSize: CGFloat
+    let temperatureMin: CGFloat
+    let temperatureMax: CGFloat
     
     private struct Constants {
         static let stepLength: CGFloat = 30.0
@@ -48,7 +50,7 @@ struct IndicatorsView: View {
                 .frame(width: width, height: height)
             ForEach(filteredIndicatorConfigurations) { configuration in
                 SpeedIndicatorView(
-                    labelValue: configuration.index,
+                    labelValue: Int((configuration.index / CGFloat(indicatorConfigurations.count)) * (temperatureMax - temperatureMin) + temperatureMin),
                     rect: proxy.frame(in: .local).insetBy(dx: speedIndicatorInset, dy: speedIndicatorInset),
                     angle: configuration.angle,
                     radius: width / 2.0,
