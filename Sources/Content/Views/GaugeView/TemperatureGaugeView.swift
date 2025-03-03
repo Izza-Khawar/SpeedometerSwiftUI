@@ -18,8 +18,8 @@ public struct TemperatureGaugeView: View {
     public var unit: String
     @State private var meterAngle: Double
     @State private var indicatorsConfigurations: [IndicatorViewConfiguration] = []
-    
-    public init(animationDuration: TimeInterval, progress: CGFloat = 0.0, numberOfSegments: Int = 100, step: Int = 10, fontSize: CGFloat = 16, unit: String) {
+    public var temperature: CGFloat
+    public init(animationDuration: TimeInterval, progress: CGFloat = 0.0, numberOfSegments: Int = 100, step: Int = 10, fontSize: CGFloat = 16, unit: String, temperature:CGFloat) {
         self.animationDuration = animationDuration
         self.progress = progress
         self.numberOfSegments = numberOfSegments
@@ -27,6 +27,7 @@ public struct TemperatureGaugeView: View {
         self.fontSize = fontSize
         self.meterAngle = Constants.startAngle
         self.unit = unit
+        self.temperature = temperature
         
     }
     
@@ -45,7 +46,8 @@ public struct TemperatureGaugeView: View {
             step: step,
             fontSize: fontSize,
             indicatorsConfigurations: indicatorsConfigurations,
-            unit:unit
+            unit:unit,
+            temperature: temperature
         )
         .task {
             indicatorsConfigurations = await Calculator.indicatorsConfigurations(
