@@ -8,10 +8,14 @@
 import SwiftUI
 
 ///Draws a line from rect.midX , rect.midY to angle calculated position .
-struct ArcLineShape: Shape {
-    var animatableData: Double
+public struct ArcLineShape: Shape {
+    public var animatableData: Double
     
-    func path(in rect: CGRect) -> Path {
+    public init(animatableData: Double) {
+        self.animatableData = animatableData
+    }
+    
+    public func path(in rect: CGRect) -> Path {
         let targetPosition = Calculator.position(in: rect, angle: animatableData)
         return Path { path in
             path.move(to: CGPoint(x: rect.midX, y: rect.midY))

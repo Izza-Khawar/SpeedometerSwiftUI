@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct IndicatorViewConfiguration: Identifiable {
-    let id: String = UUID().uuidString
-    let index: Int
-    let angle: Double
+public struct IndicatorViewConfiguration: Identifiable {
+    public let id: String = UUID().uuidString
+    public let index: Int
+    public let angle: Double
+    
+    public init(index: Int, angle: Double) {
+        self.index = index
+        self.angle = angle
+    }
 }

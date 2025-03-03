@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension AngularGradient {
+public extension AngularGradient {
     static let speedometerAngularGradient = AngularGradient(
         gradient: Gradient.speedometerGradient,
         center: .center

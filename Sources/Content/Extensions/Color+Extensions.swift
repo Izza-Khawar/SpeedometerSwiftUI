@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Color {
+public extension Color {
     static let crimsonRed = Color(
         red: 234.0 / 255.0,
         green: 67.0 / 255.0,

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Gradient {
+public extension Gradient {
     static let speedometerGradient = Gradient(stops: [
         Gradient.Stop(color: .crimsonRed, location: 0.0),
         Gradient.Stop(color: .crimsonRed, location: 0.25),

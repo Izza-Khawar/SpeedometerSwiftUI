@@ -7,15 +7,24 @@
 
 import SwiftUI
 
-struct SpeedometerShapeConfiguration {
-    let angle: Double
-    let length: CGFloat
+public struct SpeedometerShapeConfiguration {
+    public let angle: Double
+    public let length: CGFloat
+    
+    public init(angle: Double, length: CGFloat) {
+        self.angle = angle
+        self.length = length
+    }
 }
 
-struct SpeedometerShape: Shape {
-    let configurations: [SpeedometerShapeConfiguration]
+public struct SpeedometerShape: Shape {
+    public let configurations: [SpeedometerShapeConfiguration]
     
-    func path(in rect: CGRect) -> Path {
+    public init(configurations: [SpeedometerShapeConfiguration]) {
+        self.configurations = configurations
+    }
+    
+    public func path(in rect: CGRect) -> Path {
         var path = Path()
         let centerX = rect.midX
         let centerY = rect.midY
