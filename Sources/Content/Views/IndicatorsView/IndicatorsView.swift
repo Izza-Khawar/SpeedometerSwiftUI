@@ -48,18 +48,24 @@ struct IndicatorsView: View {
             SpeedometerShape(configurations: speedometerShapeConfigurations)
                 .stroke(Color.gray, lineWidth: 1.0)
                 .frame(width: width, height: height)
+            
             ForEach(filteredIndicatorConfigurations) { configuration in
+                let labelValue = Int((configuration.index / CGFloat(indicatorConfigurations.count)) * (temperatureMax - temperatureMin) + temperatureMin)
+                let rect = proxy.frame(in: .local).insetBy(dx: speedIndicatorInset, dy: speedIndicatorInset)
+                let radius = width / 2.0
+                
                 SpeedIndicatorView(
-                    labelValue: Int((configuration.index / CGFloat(indicatorConfigurations.count)) * (temperatureMax - temperatureMin) + temperatureMin),
-                    rect: proxy.frame(in: .local).insetBy(dx: speedIndicatorInset, dy: speedIndicatorInset),
+                    labelValue: labelValue,
+                    rect: rect,
                     angle: configuration.angle,
-                    radius: width / 2.0,
+                    radius: radius,
                     fontSize: fontSize
                 )
                 .frame(width: width, height: height)
             }
         }
     }
+
     
 }
 //#Preview {
