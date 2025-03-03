@@ -50,22 +50,34 @@ public struct TemperatureGaugeView: View {
             step: step,
             fontSize: fontSize,
             indicatorsConfigurations: indicatorsConfigurations,
-            unit:unit,
+            unit: unit,
             temperature: temperature,
             temperatureMin: temperatureMin,
             temperatureMax: temperatureMax
         )
-        .task {
-            indicatorsConfigurations = await Calculator.indicatorsConfigurations(
-                startAngle: Constants.startAngle,
-                endAngle: Constants.endAngle,
-                numberOfSegments: numberOfSegments
-            )
-        }
         .onChange(of: progress) { _ in
             animateMeter()
         }
+        .onAppear {
+            if #available(iOS 15.0, *) {
+                Task {
+                    indicatorsConfigurations = await Calculator.indicatorsConfigurations(
+                        startAngle: Constants.startAngle,
+                        endAngle: Constants.endAngle,
+                        numberOfSegments: numberOfSegments
+                    )
+                }
+            } else {
+                // Provide an alternative implementation for older iOS versions
+                indicatorsConfigurations = Calculator.indicatorsConfigurationsSync(
+                    startAngle: Constants.startAngle,
+                    endAngle: Constants.endAngle,
+                    numberOfSegments: numberOfSegments
+                )
+            }
+        }
     }
+
     
     //TODO: - Fix: When the meter is decelerating the animation looks and feels like there is a tiny delay.
     private func animateMeter() {
