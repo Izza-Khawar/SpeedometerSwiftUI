@@ -17,6 +17,7 @@ struct SpeedometerView: View {
     let fontSize: CGFloat
     let indicatorsConfigurations: [IndicatorViewConfiguration]
     let unit: String
+    let temperature: CGFloat
     private struct Constants {
         static let arcsInset: CGFloat = 20.0
         static let meterStrokeStyle = StrokeStyle(lineWidth: 4.0, lineCap: .round)
@@ -68,7 +69,8 @@ struct SpeedometerView: View {
                 SpeedDisplayView(
                     progress: progress,
                     numberOfSegments: numberOfSegments,
-                    unit: unit
+                    unit: unit,
+                    temperature: temperature
                 )
             }
         }
