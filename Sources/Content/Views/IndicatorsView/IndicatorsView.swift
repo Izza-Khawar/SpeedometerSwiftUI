@@ -54,7 +54,7 @@ struct IndicatorsView: View {
                 let tempRange = temperatureMax - temperatureMin
                 let scaledValue = indexFraction * CGFloat(tempRange)
                 let finalValue = scaledValue + CGFloat(temperatureMin)
-                let roundedValue = (scaledValue + CGFloat(temperatureMin)).rounded(.toNearestOrAwayFromZero)
+                let roundedValue = (scaledValue + CGFloat(temperatureMin)).rounded(.up)
 
                 let labelValue = Int(roundedValue)
 
