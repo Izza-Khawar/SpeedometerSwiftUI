@@ -50,7 +50,7 @@ struct IndicatorsView: View {
                 .frame(width: width, height: height)
             
             ForEach(filteredIndicatorConfigurations) { configuration in
-                let indexFraction = configuration.index / CGFloat(indicatorConfigurations.count)
+                let indexFraction = CGFloat(configuration.index) / CGFloat(indicatorConfigurations.count)
                 let tempRange = temperatureMax - temperatureMin
                 let scaledValue = indexFraction * CGFloat(tempRange)
                 let finalValue = scaledValue + CGFloat(temperatureMin)
