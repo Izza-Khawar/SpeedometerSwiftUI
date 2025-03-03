@@ -14,6 +14,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SpeedometerSwiftUI")
+            name: "SpeedometerSwiftUI",
+            path: "Sources")
     ]
 )
