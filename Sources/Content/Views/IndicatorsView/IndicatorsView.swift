@@ -50,15 +50,20 @@ struct IndicatorsView: View {
                 .frame(width: width, height: height)
             
             ForEach(filteredIndicatorConfigurations) { configuration in
-                let labelValue = Int(((configuration.index / CGFloat(indicatorConfigurations.count)) * (temperatureMax - temperatureMin) + temperatureMin).rounded())
-                let rect = proxy.frame(in: .local).insetBy(dx: speedIndicatorInset, dy: speedIndicatorInset)
-                let radius = width / 2.0
+                let indexFraction = configuration.index / CGFloat(indicatorConfigurations.count)
+                let tempRange = temperatureMax - temperatureMin
+                let scaledValue = indexFraction * CGFloat(tempRange)
+                let finalValue = scaledValue + CGFloat(temperatureMin)
+                let roundedValue = finalValue.rounded()
+                let labelValue = Int(roundedValue)
+
+                
                 
                 SpeedIndicatorView(
                     labelValue: labelValue,
-                    rect: rect,
+                    rect: proxy.frame(in: .local).insetBy(dx: speedIndicatorInset, dy: speedIndicatorInset),
                     angle: configuration.angle,
-                    radius: radius,
+                    radius: width / 2.0,
                     fontSize: fontSize
                 )
                 .frame(width: width, height: height)
