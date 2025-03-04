@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   # Basic Information
   spec.name         = "SpeedometerSwiftUI"
-  spec.version      = "1.0.2"
+  spec.version      = "1.0.3"
   spec.summary      = "A SwiftUI package for creating customizable speedometers."
 
   spec.description  = <<-DESC
@@ -20,11 +20,11 @@ Pod::Spec.new do |spec|
   spec.author = { "Izza Khawar" => "izza.khawar@asappstudio.com" }
   
   # Platform & Swift Version
-  spec.platform = :ios, "14.0"
+  spec.platform = :ios, "15.0"
   spec.swift_version = "5.0"
 
   # Source Location
-  spec.source = { :git => "https://github.com/Izza-Khawar/SpeedometerSwiftUI.git", :tag => "1.0.2" }
+  spec.source = { :git => "https://github.com/Izza-Khawar/SpeedometerSwiftUI.git", :tag => "1.0.3" }
 
 
   # Source Files (Swift Package)
