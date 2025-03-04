@@ -1,20 +1,25 @@
-// swift-tools-version:5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
     name: "SpeedometerSwiftUI",
-    platforms: [.iOS(.v16)],
+    platforms: [
+        .macOS(.v10_15),
+        .iOS(.v13)
+    ],
     products: [
         .library(
-            name: "Content",
-            type: .dynamic,
+            name: "SpeedometerSwiftUI",
             targets: ["SpeedometerSwiftUI"]),
     ],
     targets: [
         .target(
             name: "SpeedometerSwiftUI",
-            path: "Sources")
+            dependencies: [])
+//        ,
+//        .testTarget(
+//            name: "SpeedometerSwiftUITests",
+//            dependencies: ["SpeedometerSwiftUI"]),
     ]
 )

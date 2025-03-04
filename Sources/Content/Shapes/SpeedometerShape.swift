@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SpeedometerShapeConfiguration {
+public struct SpeedometerShapeConfiguration: Sendable {
     public let angle: Double
     public let length: CGFloat
     

@@ -69,7 +69,7 @@ public struct TemperatureGaugeView: View {
                 }
             } else {
                 // Provide an alternative implementation for older iOS versions
-                indicatorsConfigurations = Calculator.indicatorsConfigurationsSync(
+                indicatorsConfigurations = await  Calculator.indicatorsConfigurations(
                     startAngle: Constants.startAngle,
                     endAngle: Constants.endAngle,
                     numberOfSegments: numberOfSegments
