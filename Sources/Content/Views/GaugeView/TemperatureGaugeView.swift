@@ -55,25 +55,20 @@ public struct TemperatureGaugeView: View {
             temperatureMin: temperatureMin,
             temperatureMax: temperatureMax
         )
-        .onChange(of: progress) { _ in
-            animateMeter()
-        }
         .onAppear {
-            if #available(iOS 15.0, *) {
-                Task {
-                    indicatorsConfigurations = await Calculator.indicatorsConfigurations(
-                        startAngle: Constants.startAngle,
-                        endAngle: Constants.endAngle,
-                        numberOfSegments: numberOfSegments
-                    )
-                }
-            } else {
-                // Provide an alternative implementation for older iOS versions
-                indicatorsConfigurations = await  Calculator.indicatorsConfigurations(
+            
+            Task {
+                indicatorsConfigurations = await Calculator.indicatorsConfigurations(
                     startAngle: Constants.startAngle,
                     endAngle: Constants.endAngle,
                     numberOfSegments: numberOfSegments
                 )
+            }
+            
+        }
+        .onChange(of: progress) { _ in
+            Task {
+                await animateMeter()
             }
         }
     }

@@ -6,7 +6,7 @@ let package = Package(
     name: "SpeedometerSwiftUI",
     platforms: [
         .macOS(.v10_15),
-        .iOS(.v13)
+        .iOS(.v15)
     ],
     products: [
         .library(
@@ -15,11 +15,6 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SpeedometerSwiftUI",
-            dependencies: [])
-//        ,
-//        .testTarget(
-//            name: "SpeedometerSwiftUITests",
-//            dependencies: ["SpeedometerSwiftUI"]),
+            name: "SpeedometerSwiftUI")
     ]
 )
