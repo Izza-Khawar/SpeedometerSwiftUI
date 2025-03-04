@@ -1,21 +1,26 @@
-# SpeedometerSwiftUI
+# TempMeterSwiftUI
 
-`SpeedometerSwiftUI` is a SwiftUI library that provides customizable speedometer gauges for your iOS applications. It includes a variety of components and configurations to create an animated speedometer with indicator lines and labels. This project is part of my exercise with SwiftUI drawings and is not intended to be a production-ready component. It's also worth mentioning that it is not fully flexible.
-
-
-https://github.com/user-attachments/assets/b85d037f-5e62-40fe-a339-e8e248d00078
-
+`TempMeterSwiftUI` is a SwiftUI library that provides a customizable temperature gauge for your iOS applications. It includes a variety of components and configurations to create an animated temperature meter with indicator lines and labels.
 
 ## Features
 
-- **Customizable speedometer gauge**: Easily adjust the number of segments, steps, and animation duration.
-- **Animated needle**: Smoothly animates the needle as the speed changes.
-- **Indicator lines**: Displays indicator lines and labels for each segment.
-- **Reusable shapes**: Modular design with reusable shapes for drawing arcs and lines.
+- **Customizable temperature gauge**: Easily adjust the number of segments, steps, and animation duration
+- **Animated needle**: Smoothly animates the needle as the temperature changes
+- **Indicator lines**: Displays indicator lines and labels for each segment
+- **Temperature range**: Configurable minimum and maximum temperature values
+- **Color gradient**: Temperature-appropriate color gradient from cold to hot
+- **Reusable shapes**: Modular design with reusable shapes for drawing arcs and lines
 
 ## Customizing the Gauge
 
-You can customize the `GaugeView` with parameters such as animation duration, progress, number of segments, step interval for major indicator lines, and font size for the indicator labels.
+You can customize the `TemperatureGaugeView` with parameters such as:
+- Animation duration
+- Progress
+- Number of segments
+- Step interval for major indicator lines
+- Font size for the indicator labels
+- Temperature range (minimum and maximum values)
+- Unit display (°C, °F, etc.)
 
 ## Indicator Configuration
 
@@ -25,53 +30,67 @@ The library provides a convenient way to configure indicator lines and labels us
 
 The library includes several reusable shapes for drawing arcs and lines:
 
-- `ArcShape`: Draws an arc from a start angle to an end angle.
-- `ArcLineShape`: Draws a line from the center of a rectangle to a calculated position based on an angle.
-- `SpeedometerShape`: Draws the indicator lines based on the provided configurations.
-
+- `ArcShape`: Draws an arc from a start angle to an end angle
+- `ArcLineShape`: Draws a line from the center of a rectangle to a calculated position based on an angle
+- `SpeedometerShape`: Draws the indicator lines based on the provided configurations
 
 ## Usage Example
 
-Below is an example of how to integrate and customize the `GaugeView` within your SwiftUI application. 
-Remember, the `GaugeView` receives a `progress` parameter that can represent download progress, heart rate, or any other progress-oriented metric you can think of.
+Below is an example of how to integrate and customize the `TemperatureGaugeView` within your SwiftUI application:
 
 ```swift
 import SwiftUI
-import SpeedometerSwiftUI
+import TempMeterSwiftUI
 
-struct Example: View {
-    @State private var isPressing: Bool = false
+struct ContentView: View {
+    @State private var isPressing: Bool = true
     @State private var speed: TimeInterval = 0.01
     @State var progress: CGFloat = 0.0
-    @State var numberOfSegments: Int = 10
-    @State var step: Int = 5
-  
+    @State var numberOfSegments: Int = 130
+    @State var step: Int = 10
+    @State var unit: String = "°C"
+    @State private var inputTemperature: String = ""
+    @State private var temperature: Double = 0.0
+    @State private var targetTemperature: Double = 0.0
+    @State private var previousTemperature: Double = 0.0
     
+    private let minTemp: Double = -10.0
+    private let maxTemp: Double = 120.0
+
+    private func mapTemperatureToProgress(_ temp: Double) -> CGFloat {
+        let boundedTemp = max(minTemp, min(maxTemp, temp))
+        return CGFloat((boundedTemp - minTemp) / (maxTemp - minTemp))
+    }
+
     var body: some View {
         VStack {
             speedometer
-            Button(action: {}, label: {
-                Image(systemName: "pedal.accelerator")
-                    .resizable()
-                    .symbolVariant(.fill)
-                    .foregroundStyle(.white)
-            })
-            .frame(width: 70.0, height: 100.0)
-            .rotation3DEffect(isPressing ? .degrees(45) : .zero, axis: (x: 1, y: 0, z: 0))
-            .animation(.easeInOut(duration: 0.2), value: isPressing)
-            .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity, perform: {}, onPressingChanged: { isPressing in
-                self.isPressing = isPressing
-            })
+
+            VStack {
+                Text("Temperature: \(temperature, specifier: "%.f")°C")
+                Slider(value: $temperature, in: minTemp...maxTemp)
+                    .rotation3DEffect(isPressing ? .degrees(45) : .zero, axis: (x: 1, y: 0, z: 0))
+                    .animation(.easeInOut(duration: 0.2), value: isPressing)
+                    .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity, perform: {}, onPressingChanged: { isPressing in
+                        self.isPressing = isPressing
+                    })
+                    .padding()
+            }
+            .padding()
         }
     }
-    
+
     private var speedometer: some View {
         TimelineView(.animation(minimumInterval: speed)) { context in
-            GaugeView(
+            TemperatureGaugeView(
                 animationDuration: speed,
-                progress: progress,
+                progress: mapTemperatureToProgress(temperature),
                 numberOfSegments: numberOfSegments,
-                step: step
+                step: step,
+                unit: unit,
+                temperatureMin: minTemp,
+                temperatureMax: maxTemp,
+                temperature: temperature
             )
             .onChange(of: context.date) { oldValue, newValue in
                 let progress = if isPressing {
@@ -79,9 +98,7 @@ struct Example: View {
                 } else {
                     max(0.0, progress - 0.01)
                 }
-                
-                guard self.progress != progress else { return }
-                
+
                 self.speed = if isPressing { 0.05 } else { 0.2 }
                 withAnimation(.bouncy(duration: speed * 3.0)) {
                     self.progress = progress
@@ -93,15 +110,7 @@ struct Example: View {
 }
 
 #Preview {
-    Example(numberOfSegments: 100, step: 10)
+    ContentView(numberOfSegments: 100, step: 20)
         .preferredColorScheme(.dark)
 }
 ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss any changes or improvements.
-
-## Contact
-
-If you have any questions or feedback, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/lidor-fadida/).
